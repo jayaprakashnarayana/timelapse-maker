@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timelapse Maker ⚡</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+
+    <div class="container">
+        <header>
+            <h1>Timelapse Maker <ion-icon name="flash" class="accent-icon"></ion-icon></h1>
+            <p>Upload large videos up to 3GB+ and convert them to YouTube-ready timelapses in seconds.</p>
+        </header>
+
+        <div class="upload-card">
+            <form id="uploadForm">
+                <div class="drop-zone" id="dropZone">
+                    <ion-icon name="cloud-upload-outline" class="upload-icon"></ion-icon>
+                    <span class="drop-title">Drag & Drop your video here</span>
+                    <span class="drop-subtitle">or click to browse from your device</span>
+                    <input type="file" id="videoInput" name="video" accept="video/*" required>
+                    <div id="fileInfo" class="file-info hidden">
+                        <ion-icon name="videocam-outline"></ion-icon>
+                        <span id="fileName">No file selected</span>
+                    </div>
+                </div>
+
+                <div id="videoPreviewContainer" class="hidden" style="margin-bottom: 2rem;">
+                    <video id="videoPreview" controls style="width: 100%; border-radius: 12px; border: 1px solid var(--border-color);"></video>
+                    
+                    <div class="trim-controls">
+                        <label>Start Marker: <span id="startMarkerLabel" class="marker-label">00:00:00</span></label>
+                        <input type="range" id="trimStartSlider" class="range-slider" min="0" value="0" step="0.1">
+                        
+                        <label style="margin-top: 1rem;">End Marker: <span id="endMarkerLabel" class="marker-label">End</span></label>
+                        <input type="range" id="trimEndSlider" class="range-slider" min="0" value="0" step="0.1">
+                    </div>
+                </div>
+
+                <div class="options-panel">
+                    <div class="option-group">
+                        <label for="speedSelect">
+                            <ion-icon name="speedometer-outline"></ion-icon> Timelapse Speed
+                        </label>
+                        <select id="speedSelect" name="speed">
+                            <option value="1">1x (Normal Speed - Edit Only)</option>
+                            <option value="2">2x (Double Speed)</option>
+                            <option value="5">5x Speed</option>
+                            <option value="10" selected>10x Speed</option>
+                            <option value="20">20x Speed</option>
+                            <option value="30">30x Speed</option>
+                            <option value="60">60x (1 hour = 1 min)</option>
+                        </select>
+                    </div>
+
+                    <div class="option-group">
+                        <label><ion-icon name="crop-outline"></ion-icon> Crop Width &amp; Height (Optional)</label>
+                        <div style="display:flex;gap:1rem;">
+                            <input type="number" id="cropW" name="cropW" placeholder="Width (e.g. 1080)" class="text-input" style="flex:1;">
+                            <input type="number" id="cropH" name="cropH" placeholder="Height (e.g. 1920)" class="text-input" style="flex:1;">
+                        </div>
+                    </div>
+
+                    <div class="option-group toggle-group">
+                         <label class="toggle-container">
+                            <ion-icon name="volume-mute-outline"></ion-icon> Mute Audio (Recommended)
+                            <input type="checkbox" id="muteAudio" name="mute" checked disabled title="Audio is always muted for timelapses to prevent chipmunk effects.">
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    Convert Video <ion-icon name="arrow-forward-outline"></ion-icon>
+                </button>
+            </form>
+
+            <div class="progress-section hidden" id="progressSection">
+                <h3 id="progressStatus">Uploading...</h3>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="progressBarFill"></div>
+                </div>
+                <p id="progressPercentage">0%</p>
+                <p class="progress-detail" id="progressDetail">Please keep this tab open.</p>
+            </div>
+
+            <div class="result-section hidden" id="resultSection">
+                <ion-icon name="checkmark-circle-outline" class="success-icon"></ion-icon>
+                <h3>Conversion Complete!</h3>
+                <p>Your timelapse is ready for YouTube.</p>
+                <a href="#" class="download-btn" id="downloadBtn" download target="_blank">
+                    <ion-icon name="download-outline"></ion-icon> Download MP4
+                </a>
+                <button class="reset-btn" id="resetBtn">Start Over</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
